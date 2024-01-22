@@ -9,12 +9,23 @@ import { List } from "@mui/material";
 import { TaskListItem } from "../task-list-item/task-list-item";
 
 export const TasksList: React.FC = () => {
-  const { tasks } = useContext(TasksContext);
+  const { tasks, status } = useContext(TasksContext);
+
+  let filteredTasks = tasks.filter((task) => task.status === status);
+
+  if (status === "all") {
+    filteredTasks = tasks;
+  }
 
   return (
     <List className="min-w-[40rem] flex flex-col gap-2">
-      {tasks.map((task) => (
-        <TaskListItem id={task.id} value={task.value} status={task.status} />
+      {filteredTasks.map((task) => (
+        <TaskListItem
+          key={task.id}
+          id={task.id}
+          value={task.value}
+          status={task.status}
+        />
       ))}
     </List>
   );

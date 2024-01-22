@@ -1,5 +1,7 @@
 export interface Task {
-  id: number;
+  id: string;
   value: string;
-  status: "current" | "done";
+  status: Exclude<Status, "all">;
 }
+
+export type Status = "current" | "done" | "all";

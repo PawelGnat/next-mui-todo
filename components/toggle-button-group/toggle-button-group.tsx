@@ -1,14 +1,17 @@
 "use client";
 
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useContext, useState } from "react";
+import { TasksContext } from "@/context/tasks-context";
 
 import { ToggleButtonGroup as TBG } from "@mui/material";
 import { ToggleButton } from "@mui/material";
 
-export const ToggleButtonGroup: React.FC = () => {
-  const [status, setStatus] = useState("current");
+import { Status } from "@/types/types";
 
-  const handleChange = (event: MouseEvent<HTMLElement>, newStatus: string) => {
+export const ToggleButtonGroup: React.FC = () => {
+  const { status, setStatus } = useContext(TasksContext);
+
+  const handleChange = (event: MouseEvent<HTMLElement>, newStatus: Status) => {
     setStatus(newStatus);
   };
 

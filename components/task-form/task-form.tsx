@@ -9,6 +9,10 @@ import { Button } from "@mui/material";
 
 import { Task } from "@/types/types";
 
+const generateUniqueId = () => {
+  return Math.random().toString(36).substr(2, 9);
+};
+
 export const TaskForm: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const { setTasks } = useContext(TasksContext);
@@ -19,7 +23,7 @@ export const TaskForm: React.FC = () => {
     if (!inputValue) return;
 
     const newTask: Task = {
-      id: Math.random(),
+      id: generateUniqueId(),
       value: inputValue,
       status: "current",
     };
