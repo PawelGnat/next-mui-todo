@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
 
-const font = Roboto({
-  weight: ["300", "400", "500", "700"],
+export const fontRoboto = Roboto({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-roboto",
 });
+
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "CRUD with MUI",
@@ -23,7 +22,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased text-primary",
+          fontRoboto.variable
+        )}>
+        {children}
+      </body>
     </html>
   );
 }
