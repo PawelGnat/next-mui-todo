@@ -24,6 +24,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { FormField as FormFieldComponent } from "../form-field/form-field";
 
 const formSchema = z.object({
@@ -48,6 +55,12 @@ const formSchema = z.object({
   date: z.date({
     required_error: "A date is required.",
   }),
+  net: z.string({
+    required_error: "Please select payment term.",
+  }),
+  project: z.string().min(2, {
+    message: "Description must be at least 2 characters.",
+  }),
 });
 
 export const NewInvoiceForm = () => {
@@ -61,6 +74,8 @@ export const NewInvoiceForm = () => {
       code: "",
       country: "",
       date: new Date(),
+      net: "",
+      project: "",
     },
   });
 
@@ -122,7 +137,7 @@ export const NewInvoiceForm = () => {
             control={form.control}
             name="date"
             render={({ field }) => (
-              <FormItem className="flex flex-col">
+              <FormItem className="flex flex-col w-full">
                 <FormLabel>Invoice Date</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -130,7 +145,7 @@ export const NewInvoiceForm = () => {
                       <Button
                         variant={"secondary"}
                         className={cn(
-                          "w-[240px] pl-3 text-left font-normal",
+                          "w-full pl-3 text-left font-normal",
                           !field.value && "text-muted-foreground"
                         )}>
                         {field.value ? (
@@ -158,7 +173,39 @@ export const NewInvoiceForm = () => {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="net"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Payment Terms</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="bg-foreground w-full">
+                      <SelectValue placeholder="Select terms" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="7">Net 7 Days</SelectItem>
+                    <SelectItem value="14">Net 14 Days</SelectItem>
+                    <SelectItem value="30">Net 30 Days</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
+
+        <FormFieldComponent
+          control={form.control}
+          name="project"
+          label="Project Description"
+          placeholder="Project Description"
+          type="text"
+        />
 
         <Button type="submit">Submit</Button>
       </form>
