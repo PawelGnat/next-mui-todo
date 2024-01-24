@@ -9,6 +9,8 @@ export const fontRoboto = Roboto({
 });
 
 import { cn } from "@/lib/utils";
+import { InvoiceSheet } from "@/components/invoice-sheet/invoice-sheet";
+import { SheetProvider } from "@/context/sheet-context";
 
 export const metadata: Metadata = {
   title: "CRUD with MUI",
@@ -24,10 +26,13 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased text-primary",
+          "bg-background font-sans antialiased text-primary",
           fontRoboto.variable
         )}>
-        {children}
+        <SheetProvider>
+          {children}
+          <InvoiceSheet />
+        </SheetProvider>
       </body>
     </html>
   );

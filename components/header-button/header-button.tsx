@@ -11,9 +11,11 @@ interface HeaderButtonProps {
   text: string;
   onClick: () => void;
   icon?: React.ReactNode;
+  size: "default" | "withIcon" | "sm" | "lg" | "icon";
 }
 
 export const HeaderButton: React.FC<HeaderButtonProps> = ({
+  size,
   text,
   variant,
   onClick,
@@ -21,6 +23,7 @@ export const HeaderButton: React.FC<HeaderButtonProps> = ({
 }) => {
   return (
     <Button
+      size={size}
       variant={variant}
       onClick={onClick}
       className="flex flex-row justify-between gap-2">
