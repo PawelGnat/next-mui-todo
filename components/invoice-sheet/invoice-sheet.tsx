@@ -7,14 +7,10 @@ import { SheetContext } from "@/context/sheet-context";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
 import { NewInvoiceForm } from "../new-invoice-form/new-invoice-form";
-import { FormField } from "../form-field/form-field";
-import { FormControl, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Input } from "../ui/input";
 import { FormInfo } from "../form-info/form-info";
 
 export const InvoiceSheet = () => {
@@ -24,7 +20,7 @@ export const InvoiceSheet = () => {
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetContent side="left">
         <SheetHeader>
-          <SheetTitle>New invoice</SheetTitle>
+          <SheetTitle>New Invoice</SheetTitle>
         </SheetHeader>
 
         <div className="mt-8 flex flex-col gap-4">

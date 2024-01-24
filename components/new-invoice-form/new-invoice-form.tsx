@@ -32,6 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FormField as FormFieldComponent } from "../form-field/form-field";
+import { FormTableList } from "../form-table-list/form-table-list";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -132,20 +133,20 @@ export const NewInvoiceForm = () => {
           />
         </div>
 
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-4 pt-4">
           <FormField
             control={form.control}
             name="date"
             render={({ field }) => (
-              <FormItem className="flex flex-col w-full">
-                <FormLabel>Invoice Date</FormLabel>
+              <FormItem className="w-full">
+                <FormLabel className="font-light">Invoice Date</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
                         variant={"secondary"}
                         className={cn(
-                          "w-full pl-3 text-left font-normal",
+                          "w-full pl-3 text-left font-normal px-3 py-2",
                           !field.value && "text-muted-foreground"
                         )}>
                         {field.value ? (
@@ -178,12 +179,12 @@ export const NewInvoiceForm = () => {
             name="net"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Payment Terms</FormLabel>
+                <FormLabel className="font-light">Payment Terms</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger className="bg-foreground w-full">
+                    <SelectTrigger className="bg-foreground w-full hover:bg-background">
                       <SelectValue placeholder="Select terms" />
                     </SelectTrigger>
                   </FormControl>
@@ -207,7 +208,16 @@ export const NewInvoiceForm = () => {
           type="text"
         />
 
-        <Button type="submit">Submit</Button>
+        <div>
+          <FormTableList />
+        </div>
+
+        <div className="flex flex-row justify-end gap-2">
+          <Button variant={"secondary"} type="button" className="rounded-full">
+            Cancel
+          </Button>
+          <Button type="submit">Save Changes</Button>
+        </div>
       </form>
     </Form>
   );

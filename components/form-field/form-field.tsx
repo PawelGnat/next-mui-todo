@@ -30,7 +30,7 @@ export const FormField: React.FC<FormFieldProps> = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className="font-light">{label}</FormLabel>
           <FormControl>
             <Input type={type} placeholder={placeholder} {...field} />
           </FormControl>
