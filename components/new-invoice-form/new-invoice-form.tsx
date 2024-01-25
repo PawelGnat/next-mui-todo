@@ -1,6 +1,7 @@
 "use client";
 
 import * as z from "zod";
+import { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
@@ -56,15 +57,21 @@ const formSchema = z.object({
   date: z.date({
     required_error: "A date is required.",
   }),
-  net: z.string({
-    required_error: "Please select payment term.",
+  net: z.string().min(1, {
+    message: "Please select payment term.",
   }),
   project: z.string().min(2, {
     message: "Description must be at least 2 characters.",
   }),
 });
 
-export const NewInvoiceForm = () => {
+interface NewInvoiceFormProps {
+  handleSheet: Dispatch<SetStateAction<boolean>>;
+}
+
+export const NewInvoiceForm: React.FC<NewInvoiceFormProps> = ({
+  handleSheet,
+}) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -213,7 +220,11 @@ export const NewInvoiceForm = () => {
         </div>
 
         <div className="flex flex-row justify-end gap-2">
-          <Button variant={"secondary"} type="button" className="rounded-full">
+          <Button
+            variant="secondary"
+            type="button"
+            className="rounded-full"
+            onClick={() => handleSheet(false)}>
             Cancel
           </Button>
           <Button type="submit">Save Changes</Button>

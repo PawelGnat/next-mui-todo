@@ -35,7 +35,7 @@ export const InvoiceSheet = () => {
 
         <div className="mt-8 flex flex-col gap-4">
           <p className="text-sm text-accent">Bill To</p>
-          <NewInvoiceForm />
+          <NewInvoiceForm handleSheet={setIsSheetOpen} />
         </div>
       </SheetContent>
     </Sheet>

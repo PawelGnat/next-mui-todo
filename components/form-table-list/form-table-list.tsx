@@ -2,36 +2,45 @@ import {
   Table,
   TableBody,
   TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { FormTableListItem } from "../form-table-list-item/form-table-list-item";
+
+import { FormTableBodyRow } from "../form-table-body-row/form-table-body-row";
+import { Button } from "../ui/button";
+import { useState } from "react";
 
 export const FormTableList = () => {
+  const [tableRows, setTableRows] = useState(1);
+
   return (
-    <Table>
-      <TableCaption>Item List</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Item Name</TableHead>
-          <TableHead>Qty.</TableHead>
-          <TableHead>Price</TableHead>
-          <TableHead>Total</TableHead>
-          <TableHead className="text-right"></TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          {/* <TableCell className="font-medium">INV001</TableCell> */}
-          {/* <TableCell>Paid</TableCell> */}
-          {/* <TableCell>Credit Card</TableCell> */}
-          <FormTableListItem type="text" />
-          <TableCell>Credit Card</TableCell>
-          <TableCell className="text-right">$250.00</TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
+    <>
+      <Table className="border-separate border-spacing-y-4">
+        <TableCaption>Item List</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">Item Name</TableHead>
+            <TableHead>Qty.</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Total</TableHead>
+            <TableHead className="text-right"></TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {Array.from({ length: tableRows }, (_, index) => (
+            <FormTableBodyRow key={index} />
+          ))}
+        </TableBody>
+      </Table>
+      <Button
+        variant="secondary"
+        type="button"
+        className="rounded-full w-full"
+        aria-label="Add new item to a list"
+        onClick={() => setTableRows((prev) => prev + 1)}>
+        + Add New Item
+      </Button>
+    </>
   );
 };
