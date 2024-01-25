@@ -9,10 +9,35 @@ import {
 
 import { FormTableBodyRow } from "../form-table-body-row/form-table-body-row";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { InvoiceDataType } from "@/types/types";
 
 export const FormTableList = () => {
-  const [tableRows, setTableRows] = useState(1);
+  const [tableData, setTableData] = useState([
+    { id: 1, itemName: "", qty: 0, price: 0 },
+  ]);
+
+  useEffect(() => {
+    console.log(tableData);
+  }, [tableData]);
+
+  const handleAddRow = () => {
+    const newId = Math.max(...tableData.map((row) => row.id), 0) + 1;
+    setTableData((prevData) => [
+      ...prevData,
+      { id: newId, itemName: "", qty: 0, price: 0 },
+    ]);
+  };
+
+  const handleRowChange = (id: number, newData: InvoiceDataType) => {
+    setTableData((prevData) => {
+      const updatedData = prevData.map((row) =>
+        row.id === id ? { ...row, ...newData } : row
+      );
+      return updatedData;
+    });
+  };
 
   return (
     <>
@@ -28,8 +53,14 @@ export const FormTableList = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Array.from({ length: tableRows }, (_, index) => (
-            <FormTableBodyRow key={index} />
+          {tableData.map((rowData) => (
+            <FormTableBodyRow
+              key={rowData.id}
+              data={rowData}
+              onChange={(newData: InvoiceDataType) =>
+                handleRowChange(rowData.id, newData)
+              }
+            />
           ))}
         </TableBody>
       </Table>
@@ -38,7 +69,7 @@ export const FormTableList = () => {
         type="button"
         className="rounded-full w-full"
         aria-label="Add new item to a list"
-        onClick={() => setTableRows((prev) => prev + 1)}>
+        onClick={handleAddRow}>
         + Add New Item
       </Button>
     </>
