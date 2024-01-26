@@ -20,20 +20,24 @@ export const FormTableBodyRow: React.FC<FormTableBodyRowProps> = ({
   const [qty, setQty] = useState<number>(data.qty);
   const [price, setPrice] = useState<number>(data.price);
 
-  const handleQtyChange = (value: number) => {
-    setQty(value);
-    onChange({ ...data, qty: value });
+  const handleItemNameChange = (value: string | number) => {
+    onChange({ ...data, itemName: value as string });
   };
 
-  const handlePriceChange = (value: number) => {
-    setPrice(value);
-    onChange({ ...data, price: value });
+  const handleQtyChange = (value: string | number) => {
+    setQty(value as number);
+    onChange({ ...data, qty: value as number });
+  };
+
+  const handlePriceChange = (value: string | number) => {
+    setPrice(value as number);
+    onChange({ ...data, price: value as number });
   };
 
   return (
     <TableRow>
       <TableCell className="pr-2 w-full">
-        <FormTableListInput type="text" />
+        <FormTableListInput type="text" onChange={handleItemNameChange} />
       </TableCell>
       <TableCell className="px-2 min-w-20">
         <FormTableListInput type="number" onChange={handleQtyChange} />
