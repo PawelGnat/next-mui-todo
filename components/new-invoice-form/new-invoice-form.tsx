@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
@@ -87,8 +87,12 @@ export const NewInvoiceForm: React.FC<NewInvoiceFormProps> = ({
     },
   });
 
+  const [tableData, setTableData] = useState([
+    { id: 1, itemName: "", qty: 0, price: 0 },
+  ]);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    console.log(values, tableData);
   }
 
   return (
@@ -216,7 +220,7 @@ export const NewInvoiceForm: React.FC<NewInvoiceFormProps> = ({
         />
 
         <div>
-          <FormTableList />
+          <FormTableList tableData={tableData} setTableData={setTableData} />
         </div>
 
         <div className="flex flex-row justify-end gap-2">
