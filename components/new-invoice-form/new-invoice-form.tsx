@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { v4 as uuidv4 } from "uuid";
+import { addDays } from "date-fns";
 
 import { cn } from "@/lib/utils";
 
@@ -35,6 +36,8 @@ import {
 } from "@/components/ui/select";
 import { FormField as FormFieldComponent } from "../form-field/form-field";
 import { FormTableList } from "../form-table-list/form-table-list";
+
+import { InvoiceType } from "@/types/types";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -93,7 +96,12 @@ export const NewInvoiceForm: React.FC<NewInvoiceFormProps> = ({
   ]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    let invoiceData = { ...values, data: tableData };
+    let invoiceData: InvoiceType = {
+      ...values,
+      data: tableData,
+      status: "draft",
+      paymentDate: addDays(new Date(values.date), Number(values.net)),
+    };
     console.log(invoiceData);
   }
 
