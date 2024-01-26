@@ -31,6 +31,7 @@ const config = {
         accent: "rgba(var(--accent) / <alpha-value>)",
         paid: "rgba(var(--paid) / <alpha-value>)",
         pending: "rgba(var(--pending) / <alpha-value>)",
+        alert: "rgba(var(--alert) / <alpha-value>)",
         primary: {
           DEFAULT: "rgba(var(--text) / <alpha-value>)",
           // foreground: "hsl(var(--primary-foreground))",

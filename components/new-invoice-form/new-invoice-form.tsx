@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
+import { v4 as uuidv4 } from "uuid";
 
 import { cn } from "@/lib/utils";
 
@@ -88,11 +89,12 @@ export const NewInvoiceForm: React.FC<NewInvoiceFormProps> = ({
   });
 
   const [tableData, setTableData] = useState([
-    { id: 1, itemName: "", qty: 0, price: 0 },
+    { id: uuidv4(), itemName: "", qty: 0, price: 0 },
   ]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values, tableData);
+    let invoiceData = { ...values, data: tableData };
+    console.log(invoiceData);
   }
 
   return (

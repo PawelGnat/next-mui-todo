@@ -11,6 +11,7 @@ const badgeVariants = cva(
         draft: "text-primary bg-primary/10",
         paid: "text-paid bg-paid/10",
         pending: "text-pending bg-pending/10",
+        overdue: "text-alert bg-alert/10",
       },
     },
     defaultVariants: {

@@ -2,8 +2,10 @@ import clsx from "clsx";
 
 import { Badge } from "@/components/ui/badge";
 
+import { InvoiceType } from "@/types/types";
+
 interface InvoiceItemBadgeProps {
-  status: "draft" | "paid" | "pending";
+  status: InvoiceType["status"];
 }
 
 export const InvoiceItemBadge: React.FC<InvoiceItemBadgeProps> = ({
@@ -16,6 +18,7 @@ export const InvoiceItemBadge: React.FC<InvoiceItemBadgeProps> = ({
           "bg-primary": status === "draft",
           "bg-paid": status === "paid",
           "bg-pending": status === "pending",
+          "bg-alert": status === "overdue",
         })}></span>
       {status}
     </Badge>

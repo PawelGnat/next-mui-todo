@@ -6,6 +6,7 @@ export const InvoicesList = () => {
       <InvoiceListItem status="draft" />
       <InvoiceListItem status="pending" />
       <InvoiceListItem status="paid" />
+      <InvoiceListItem status="overdue" />
     </ul>
   );
 };

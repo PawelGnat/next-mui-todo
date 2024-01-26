@@ -1,7 +1,9 @@
 import { InvoiceItemBadge } from "../invoice-item-badge/invoice-item-badge";
 
+import { InvoiceType } from "@/types/types";
+
 interface InvoiceListItemProps {
-  status: "draft" | "paid" | "pending";
+  status: InvoiceType["status"];
 }
 
 export const InvoiceListItem: React.FC<InvoiceListItemProps> = ({ status }) => {

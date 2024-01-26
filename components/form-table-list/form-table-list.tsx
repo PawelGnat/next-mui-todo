@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   Table,
@@ -24,20 +25,25 @@ export const FormTableList: React.FC<FormTableListProps> = ({
   setTableData,
 }) => {
   const handleAddRow = () => {
-    const newId = Math.max(...tableData.map((row) => row.id), 0) + 1;
     setTableData((prevData: InvoiceDataType[]) => [
       ...prevData,
-      { id: newId, itemName: "", qty: 0, price: 0 },
+      { id: uuidv4(), itemName: "", qty: 0, price: 0 },
     ]);
   };
 
-  const handleRowChange = (id: number, newData: InvoiceDataType) => {
+  const handleRowChange = (id: string, newData: InvoiceDataType) => {
     setTableData((prevData: InvoiceDataType[]) => {
       const updatedData = prevData.map((row) =>
         row.id === id ? { ...row, ...newData } : row
       );
       return updatedData;
     });
+  };
+
+  const handleDeleteRow = (id: string) => {
+    setTableData((prevData: InvoiceDataType[]) =>
+      prevData.filter((row) => row.id !== id)
+    );
   };
 
   return (
@@ -61,6 +67,7 @@ export const FormTableList: React.FC<FormTableListProps> = ({
               onChange={(newData: InvoiceDataType) =>
                 handleRowChange(rowData.id, newData)
               }
+              onDelete={() => handleDeleteRow(rowData.id)}
             />
           ))}
         </TableBody>

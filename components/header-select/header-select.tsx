@@ -17,6 +17,7 @@ export const HeaderSelect = () => {
         <SelectItem value="draft">Draft</SelectItem>
         <SelectItem value="paid">Paid</SelectItem>
         <SelectItem value="pending">Pending</SelectItem>
+        <SelectItem value="overdue">Overdue</SelectItem>
       </SelectContent>
     </Select>
   );

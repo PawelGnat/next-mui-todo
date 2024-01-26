@@ -11,11 +11,13 @@ import { InvoiceDataType } from "@/types/types";
 interface FormTableBodyRowProps {
   data: InvoiceDataType;
   onChange: (newData: InvoiceDataType) => void;
+  onDelete: () => void;
 }
 
 export const FormTableBodyRow: React.FC<FormTableBodyRowProps> = ({
   data,
   onChange,
+  onDelete,
 }) => {
   const [qty, setQty] = useState<number>(data.qty);
   const [price, setPrice] = useState<number>(data.price);
@@ -47,10 +49,7 @@ export const FormTableBodyRow: React.FC<FormTableBodyRowProps> = ({
       </TableCell>
       <TableCell className="px-2">{(qty * price).toFixed(2)}</TableCell>
       <TableCell className="pl-2 w-0">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => console.log("delete")}>
+        <Button variant="outline" size="icon" onClick={onDelete}>
           <TrashIcon className="h-4 w-4" />
         </Button>
       </TableCell>
