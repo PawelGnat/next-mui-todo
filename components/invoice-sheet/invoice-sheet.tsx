@@ -1,8 +1,11 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
+import { AuthContext } from "@/context/auth-context";
 import { SheetContext } from "@/context/sheet-context";
+
+import getUserInfo from "@/firebase/firestore/getUserInfo";
 
 import {
   Sheet,
@@ -15,6 +18,25 @@ import { FormInfo } from "../form-info/form-info";
 
 export const InvoiceSheet = () => {
   const { isSheetOpen, setIsSheetOpen } = useContext(SheetContext);
+  const { user } = useContext(AuthContext);
+
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    if (user) {
+      const { result } = await getUserInfo("usersInfo", user.uid);
+      const data = result?.data();
+      setUserData(data);
+    }
+  }, [user]);
+
+  console.log(userData);
+
+  // if (user) {
+  //   const { result } = getUserInfo("usersInfo", user.uid);
+  //   const data = result?.data();
+  //   console.log(data);
+  // }
 
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>

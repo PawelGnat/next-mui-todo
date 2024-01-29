@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+
 import signUp from "@/firebase/auth/signup";
 import signIn from "@/firebase/auth/signin";
+import addUserInfo from "@/firebase/firestore/addUserInfo";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -55,6 +57,22 @@ export const AuthCard = () => {
         formValues.email,
         formValues.password
       );
+
+      if (result) {
+        const data = {
+          name: formValues.name,
+          street: formValues.street,
+          city: formValues.city,
+          "post-code": formValues["post-code"],
+          country: formValues.country,
+        };
+
+        const { error } = await addUserInfo("usersInfo", result.user.uid, data);
+
+        if (error) {
+          return console.log(error);
+        }
+      }
 
       if (error) {
         return console.log(error);
