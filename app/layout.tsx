@@ -11,6 +11,7 @@ export const fontRoboto = Roboto({
 import { cn } from "@/lib/utils";
 import { InvoiceSheet } from "@/components/invoice-sheet/invoice-sheet";
 import { SheetProvider } from "@/context/sheet-context";
+import { AuthProvider } from "@/context/auth-context";
 
 export const metadata: Metadata = {
   title: "CRUD with MUI",
@@ -29,10 +30,12 @@ export default function RootLayout({
           "bg-background font-sans antialiased text-primary",
           fontRoboto.variable
         )}>
-        <SheetProvider>
-          {children}
-          <InvoiceSheet />
-        </SheetProvider>
+        <AuthProvider>
+          <SheetProvider>
+            {children}
+            <InvoiceSheet />
+          </SheetProvider>
+        </AuthProvider>
       </body>
     </html>
   );
