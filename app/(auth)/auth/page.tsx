@@ -1,140 +1,138 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-
 import signUp from "@/firebase/auth/signup";
+import signIn from "@/firebase/auth/signin";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { LoginForm } from "./components/login-form/login-form";
+import { RegisterForm } from "./components/login-form/register-form";
+import { useRouter } from "next/navigation";
 
 export default function Auth() {
-  const [login, setLogin] = useState<boolean>(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [tab, setTab] = useState("login");
   const router = useRouter();
 
-  const handleRegister = async (event) => {
-    event.preventDefault();
-
-    const { result, error } = await signUp(email, password);
-
-    if (error) {
-      return console.log(error);
-    }
-
-    console.log(result);
-    setLogin((prev) => !prev);
+  const onTabChange = (value: string) => {
+    setTab(value);
   };
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
+  const handleLogin = async (formValues: {
+    email: string;
+    password: string;
+  }) => {
+    try {
+      const { result, error } = await signIn(
+        formValues.email,
+        formValues.password
+      );
 
-    const { result, error } = await signIn(email, password);
+      if (result) {
+        router.push("/");
+      }
 
-    if (error) {
-      return console.log(error);
+      if (error) {
+        return console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    console.log(result);
-    return router.push("/");
+  const handleRegister = async (formValues: {
+    name: string;
+    email: string;
+    password: string;
+    "repeat-password": string;
+    street: string;
+    city: string;
+    "post-code": string;
+    country: string;
+  }) => {
+    try {
+      const { result, error } = await signUp(
+        formValues.email,
+        formValues.password
+      );
+
+      if (result) {
+        setTab((prev) => "login");
+      }
+
+      if (error) {
+        return console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <Tabs
-      defaultValue="account"
+      // defaultValue="login"
+      value={tab}
+      onValueChange={onTabChange}
       className="w-[400px] min-h-screen flex flex-col items-center justify-center mx-auto">
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsTrigger value="login">Login</TabsTrigger>
+        <TabsTrigger value="register">Register</TabsTrigger>
       </TabsList>
-      <TabsContent value="account">
+
+      <TabsContent value={tab === "login" ? "login" : "register"}>
         <Card>
           <CardHeader>
-            <CardTitle>Account</CardTitle>
+            <CardTitle>{tab === "login" ? "Login" : "Register"}</CardTitle>
             <CardDescription>
-              Make changes to your account here. Click save when you're done.
+              {tab === "login"
+                ? "Please enter your registered email address and password to access your account."
+                : "Sign up by providing your email, password and other required information to create your account."}
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" defaultValue="Pedro Duarte" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" defaultValue="@peduarte" />
-            </div>
+          <CardContent>
+            {tab === "login" ? (
+              <LoginForm handleLogin={handleLogin} />
+            ) : (
+              <RegisterForm handleRegister={handleRegister} />
+            )}
           </CardContent>
-          <CardFooter>
-            <Button>Save changes</Button>
-          </CardFooter>
         </Card>
       </TabsContent>
-      <TabsContent value="password">
+
+      {/* <TabsContent value="login">
         <Card>
           <CardHeader>
-            <CardTitle>Password</CardTitle>
+            <CardTitle>Login</CardTitle>
             <CardDescription>
-              Change your password here. After saving, you'll be logged out.
+              Please enter your registered email address and password to access
+              your account.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="current">Current password</Label>
-              <Input id="current" type="password" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="new">New password</Label>
-              <Input id="new" type="password" />
-            </div>
+          <CardContent>
+            <LoginForm handleLogin={handleLogin} />
           </CardContent>
-          <CardFooter>
-            <Button>Save password</Button>
-          </CardFooter>
         </Card>
       </TabsContent>
+      <TabsContent value="register">
+        <Card>
+          <CardHeader>
+            <CardTitle>Register</CardTitle>
+            <CardDescription>
+              Sign up by providing your email, password and other required
+              information to create your account.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <RegisterForm handleRegister={handleRegister} />
+          </CardContent>
+        </Card>
+      </TabsContent> */}
     </Tabs>
   );
-
-  //   return (
-  //     <>
-  //       <h1 className="mt-60 mb-30">Sign up</h1>
-  //       <form onSubmit={handleForm} className="form">
-  //         <label htmlFor="email">
-  //           <p>Email</p>
-  //           <input
-  //             onChange={(e) => setEmail(e.target.value)}
-  //             required
-  //             type="email"
-  //             name="email"
-  //             id="email"
-  //             placeholder="example@mail.com"
-  //           />
-  //         </label>
-  //         <label htmlFor="password">
-  //           <p>Password</p>
-  //           <input
-  //             onChange={(e) => setPassword(e.target.value)}
-  //             required
-  //             type="password"
-  //             name="password"
-  //             id="password"
-  //             placeholder="password"
-  //           />
-  //         </label>
-  //         <button type="submit">Sign up</button>
-  //       </form>
-  //     </>
-  //   );
 }

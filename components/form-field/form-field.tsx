@@ -14,7 +14,7 @@ interface FormFieldProps {
   name: string;
   label: string;
   placeholder: string;
-  type: "email" | "text" | "number";
+  type: "email" | "text" | "number" | "password";
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
