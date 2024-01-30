@@ -40,7 +40,7 @@ import { FormField as FormFieldComponent } from "../form-field/form-field";
 import { FormTableList } from "../form-table-list/form-table-list";
 
 import { InvoiceType } from "@/types/types";
-import { generateInvoiceID } from "@/app/utils/generateInvoiceID";
+import { generateInvoiceID } from "@/utils/generateInvoiceID";
 
 const formSchema = z.object({
   name: z.string().min(2, {

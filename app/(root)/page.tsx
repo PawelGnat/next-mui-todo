@@ -7,7 +7,7 @@ import { SheetContext } from "@/context/sheet-context";
 
 import { HeaderSelect } from "@/components/header-select/header-select";
 import { HeaderButton } from "@/components/header-button/header-button";
-import { InvoicesList } from "@/components/invoices-list/invoices-list";
+import { InvoicesList } from "@/app/(root)/components/invoices-list/invoices-list";
 import { Navbar } from "@/components/navbar/navbar";
 
 export default function Home() {

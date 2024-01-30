@@ -9,7 +9,7 @@ import {
 export const HeaderSelect = () => {
   return (
     <Select>
-      <SelectTrigger className="w-[180px] border-0 text-primary">
+      <SelectTrigger className="w-[150px] border-0 text-primary">
         <SelectValue placeholder="Filter by status" />
       </SelectTrigger>
       <SelectContent>

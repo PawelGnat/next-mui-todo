@@ -32,7 +32,7 @@ export const InvoiceSheet = () => {
   const fetchData = async () => {
     if (user) {
       try {
-        const { result } = await getUserInfo("usersInfo", user.uid);
+        const { result } = await getUserInfo(user.uid);
         const data = result?.data() as UserDataType;
 
         if (data) {

@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type InvoiceDataType = {
   id: string;
   itemName: string;
@@ -14,7 +16,7 @@ export type InvoiceType = {
   city: string;
   code: string;
   country: string;
-  date: Date;
+  date: Timestamp | Date;
   paymentDate: Date;
   net: string;
   project: string;
