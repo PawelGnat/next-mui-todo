@@ -9,6 +9,7 @@ export const fontRoboto = Roboto({
 });
 
 import { cn } from "@/lib/utils";
+
 import { InvoiceSheet } from "@/components/invoice-sheet/invoice-sheet";
 import { SheetProvider } from "@/context/sheet-context";
 import { AuthProvider } from "@/context/auth-context";
@@ -25,6 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="/favicon.png" sizes="any" />
       <body
         className={cn(
           "bg-background font-sans antialiased text-primary",

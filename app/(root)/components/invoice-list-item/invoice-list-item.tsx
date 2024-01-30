@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 
-import { InvoiceItemBadge } from "../../app/(root)/components/invoice-item-badge/invoice-item-badge";
+import { InvoiceItemBadge } from "../invoice-item-badge/invoice-item-badge";
 
 import { Timestamp } from "firebase/firestore";
 import { InvoiceDataType, InvoiceType } from "@/types/types";
