@@ -6,6 +6,8 @@ export type InvoiceDataType = {
 };
 
 export type InvoiceType = {
+  id: string;
+  userId: string;
   name: string;
   email: string;
   address: string;
@@ -18,4 +20,12 @@ export type InvoiceType = {
   project: string;
   data: InvoiceDataType[];
   status: "draft" | "paid" | "pending" | "overdue";
+};
+
+export type UserDataType = {
+  name: string;
+  street: string;
+  city: string;
+  "post-code": string;
+  country: string;
 };
