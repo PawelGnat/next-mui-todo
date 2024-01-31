@@ -19,11 +19,8 @@ export default function Home() {
   const { setIsSheetOpen } = useContext(SheetContext);
   const { invoices } = useContext(AuthContext);
 
-  const [status, setStatus] = useState<InvoiceType["status"]>("all");
-
-  const handleStatus = (status: InvoiceType["status"]) => {
-    setStatus(status);
-  };
+  const [status, setStatus] = useState<InvoiceType["status"]>("total");
+  const [currentInvoices, setCurrentInvoices] = useState<number>(0);
 
   return (
     <>
@@ -32,11 +29,20 @@ export default function Home() {
         <div className="font-bold flex flex-col gap-4">
           <h1 className="text-4xl">Invoices</h1>
           <p className="text-primary font-normal text-sm">
-            There are {invoices.length} total invoices
+            {invoices.length > 0
+              ? `There ${
+                  ((currentInvoices > 1 || currentInvoices === 0) && "are") ||
+                  (currentInvoices === 1 && "is")
+                } ${
+                  (currentInvoices === 0 && "no") ||
+                  currentInvoices ||
+                  invoices.length
+                } ${status} invoices`
+              : "No invoices"}
           </p>
         </div>
         <div className="flex items-center gap-4">
-          <InvoiceSelect onSelect={handleStatus} />
+          <InvoiceSelect onSelect={setStatus} />
           <Button
             size="withIcon"
             variant="default"
@@ -49,7 +55,11 @@ export default function Home() {
       </header>
       <main className="max-w-screen-md mx-auto">
         {invoices.length > 0 ? (
-          <InvoicesList invoices={invoices} status={status} />
+          <InvoicesList
+            invoices={invoices}
+            status={status}
+            setCurrentInvoices={setCurrentInvoices}
+          />
         ) : (
           <EmptyState />
         )}

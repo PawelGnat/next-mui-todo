@@ -21,7 +21,7 @@ export type InvoiceType = {
   net: string;
   project: string;
   data: InvoiceDataType[];
-  status: "all" | "draft" | "paid" | "pending" | "overdue";
+  status: "total" | "draft" | "paid" | "pending" | "overdue";
 };
 
 export type UserDataType = {

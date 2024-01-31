@@ -18,7 +18,7 @@ export const InvoiceSelect: React.FC<InvoiceSelectProps> = ({ onSelect }) => {
         <SelectValue placeholder="Filter by status" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="all">All</SelectItem>
+        <SelectItem value="total">Total</SelectItem>
         <SelectItem value="draft">Draft</SelectItem>
         <SelectItem value="paid">Paid</SelectItem>
         <SelectItem value="pending">Pending</SelectItem>

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { InvoiceListItem } from "../invoice-list-item/invoice-list-item";
 
 import { InvoiceType } from "@/types/types";
@@ -5,17 +6,23 @@ import { InvoiceType } from "@/types/types";
 interface InvoicesListProps {
   invoices: InvoiceType[];
   status: InvoiceType["status"];
+  setCurrentInvoices: (value: number) => void;
 }
 
 export const InvoicesList: React.FC<InvoicesListProps> = ({
   invoices,
   status,
+  setCurrentInvoices,
 }) => {
   const filteredInvoices = (status: InvoiceType["status"]) => {
-    return status === "all"
+    return status === "total"
       ? invoices
       : invoices.filter((invoice) => invoice.status === status);
   };
+
+  useEffect(() => {
+    setCurrentInvoices(filteredInvoices(status).length);
+  }, [filteredInvoices]);
 
   return (
     <ul className="mt-16 flex flex-col gap-4">
