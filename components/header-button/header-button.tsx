@@ -7,7 +7,8 @@ interface HeaderButtonProps {
     | "destructive"
     | "outline"
     | "ghost"
-    | "link";
+    | "link"
+    | "cancel";
   text: string;
   onClick: () => void;
   icon?: React.ReactNode;

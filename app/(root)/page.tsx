@@ -51,7 +51,7 @@ export default function Home() {
       <header className="mt-16 max-w-screen-md mx-auto flex items-center justify-between">
         <div className="font-bold flex flex-col gap-4">
           <h1 className="text-4xl">Invoices</h1>
-          <p className="text-primary/60 font-normal text-sm">
+          <p className="text-primary font-normal text-sm">
             There are {invoices.length} total invoices
           </p>
         </div>

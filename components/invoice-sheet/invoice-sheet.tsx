@@ -55,7 +55,7 @@ export const InvoiceSheet = () => {
           <SheetTitle>New Invoice</SheetTitle>
         </SheetHeader>
 
-        <div className="mt-8 flex flex-col gap-4">
+        <div className="mt-8 flex flex-col gap-4 mx-1">
           <p className="text-sm text-accent">Bill From</p>
           <FormInfo heading="Street Address" text={userData.street} />
           <div className="flex flex-row gap-4">

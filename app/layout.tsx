@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { League_Spartan } from "next/font/google";
 import "./globals.css";
 
-export const fontRoboto = Roboto({
+export const fontRoboto = League_Spartan({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
   variable: "--font-roboto",

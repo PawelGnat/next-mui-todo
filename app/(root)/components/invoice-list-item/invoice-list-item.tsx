@@ -30,11 +30,11 @@ export const InvoiceListItem: React.FC<InvoiceListItemProps> = ({
     <li className="flex flex-row items-center justify-between bg-foreground py-4 px-8 rounded-lg">
       <div className="flex flex-row gap-14 items-center">
         <p className="font-normal">
-          <span className="text-primary/60">#</span>
+          <span className="text-secondary">#</span>
           {id}
         </p>
-        <p className="font-normal text-primary/60 text-sm">{formattedDate}</p>
-        <p className="font-normal text-primary/60 text-sm">{name}</p>
+        <p className="font-normal text-secondary text-sm">{formattedDate}</p>
+        <p className="font-normal text-primary text-sm">{name}</p>
       </div>
 
       <div className="flex flex-row items-center">
