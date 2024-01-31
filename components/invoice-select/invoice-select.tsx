@@ -5,10 +5,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { InvoiceType } from "@/types/types";
 
-export const HeaderSelect = () => {
+interface InvoiceSelectProps {
+  onSelect: (status: InvoiceType["status"]) => void;
+}
+
+export const InvoiceSelect: React.FC<InvoiceSelectProps> = ({ onSelect }) => {
   return (
-    <Select>
+    <Select onValueChange={(status: InvoiceType["status"]) => onSelect(status)}>
       <SelectTrigger className="w-[150px] border-0 text-primary">
         <SelectValue placeholder="Filter by status" />
       </SelectTrigger>

@@ -1,49 +1,29 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import Image from "next/image";
+import { useContext, useState } from "react";
 
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 
 import { SheetContext } from "@/context/sheet-context";
 import { AuthContext } from "@/context/auth-context";
-import getAllInvoices from "@/firebase/firestore/getAllInvoices";
 
-import { HeaderSelect } from "@/components/header-select/header-select";
-import { HeaderButton } from "@/components/header-button/header-button";
+import { InvoiceSelect } from "@/components/invoice-select/invoice-select";
 import { InvoicesList } from "@/app/(root)/components/invoices-list/invoices-list";
 import { Navbar } from "@/components/navbar/navbar";
+import { Button } from "@/components/ui/button";
+import { EmptyState } from "./components/empty-state/empty-state";
 
 import { InvoiceType } from "@/types/types";
 
 export default function Home() {
   const { setIsSheetOpen } = useContext(SheetContext);
-  const { user } = useContext(AuthContext);
-  const [invoices, setInvoices] = useState<InvoiceType[]>([]);
+  const { invoices } = useContext(AuthContext);
 
-  const fetchInvoices = async () => {
-    if (user) {
-      try {
-        const { result, error } = await getAllInvoices(user.uid);
-        const data = result as InvoiceType[];
+  const [status, setStatus] = useState<InvoiceType["status"]>("all");
 
-        if (error) {
-          console.error("Error fetching invoices:", error);
-          return;
-        }
-
-        if (data) {
-          setInvoices(data);
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    }
+  const handleStatus = (status: InvoiceType["status"]) => {
+    setStatus(status);
   };
-
-  useEffect(() => {
-    fetchInvoices();
-  }, []);
 
   return (
     <>
@@ -56,28 +36,22 @@ export default function Home() {
           </p>
         </div>
         <div className="flex items-center gap-4">
-          <HeaderSelect />
-          <HeaderButton
+          <InvoiceSelect onSelect={handleStatus} />
+          <Button
             size="withIcon"
             variant="default"
-            text="New Invoice"
             onClick={() => setIsSheetOpen(true)}
-            icon={<PlusCircledIcon className="h-6 w-6" />}
-          />
+            className="flex flex-row justify-between gap-2">
+            <PlusCircledIcon className="h-6 w-6" />
+            New Invoice
+          </Button>
         </div>
       </header>
       <main className="max-w-screen-md mx-auto">
         {invoices.length > 0 ? (
-          <InvoicesList invoices={invoices} />
+          <InvoicesList invoices={invoices} status={status} />
         ) : (
-          <Image
-            src="/illustration-empty.svg"
-            width={500}
-            height={500}
-            alt=""
-            aria-label="No invoices"
-            className="mx-auto mt-20"
-          />
+          <EmptyState />
         )}
       </main>
     </>
