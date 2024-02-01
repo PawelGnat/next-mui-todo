@@ -8,6 +8,7 @@ import { formattedDate } from "@/utils/formattedDate";
 
 import { InvoiceType, UserDataType } from "@/types/types";
 import { Timestamp } from "firebase/firestore";
+import { InvoiceCardTable } from "../invoice-card-table/invoice-card-table";
 
 interface InvoiceCardProps {
   data: InvoiceType;
@@ -86,6 +87,9 @@ export const InvoiceCard: React.FC<InvoiceCardProps> = ({ data }) => {
           <p className="font-normal text-secondary text-sm">{data.code}</p>
           <p className="font-normal text-secondary text-sm">{data.country}</p>
         </div>
+      </div>
+      <div className="bg-secondary/5 p-8 mt-11 border-0 rounded-lg">
+        <InvoiceCardTable data={data.data} />
       </div>
     </div>
   );
